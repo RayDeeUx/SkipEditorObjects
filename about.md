@@ -10,6 +10,6 @@ For an easier reference on object IDs, please copy the level "[Object IDs New](l
 
 Note that this mod does *not* stop you from placing object IDs specified in your `custom.txt` file, it only hides the button in the Editor UI.
 
-For JSON-literate folks, or for people who would like to hide objects based on historical Geometry Dash game versions, please use iAndyHD3's `HideEditorObjects` mod whenever it is available on the index.
+For JSON-literate folks, or for people who would like to hide objects based on historical Geometry Dash game versions, please use iAndyHD3's `Hide Editor Objects` mod whenever it is available on the index.
 
 This Geode mod is licensed under LGPLv2, and is unavailable for macOS.
