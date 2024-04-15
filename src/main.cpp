@@ -1,0 +1,79 @@
+#include <Geode/modify/EditButtonBar.hpp>
+#include <regex>
+
+using namespace geode::prelude;
+
+const std::regex numbersOnly(R"(^(\d+)$)", std::regex::optimize | std::regex::icase);
+
+$on_mod(Loaded) {
+	// code adapted with permission from dialouge handler original author thesillydoggo: https://discord.com/channels/911701438269386882/911702535373475870/1212633554345918514
+	auto path = (Mod::get()->getConfigDir() / "custom.txt").string();
+	if (!std::filesystem::exists(path)) {
+	std::string content = R"(hello there
+this is the text file where you add object IDs
+separate object IDs by new lines like you see in this file
+i didn't include any object IDs in here by default
+(that would only cause confusion for more users in the long run, let's be honest)
+don't worry, the mod won't read any lines that arent exclusively numbers
+have fun!
+--raydeeux)";
+		utils::file::writeString(path, content);
+	}
+}
+
+class $modify(MyEditButtonBar, EditButtonBar) {
+
+/*
+	proof of consent from iandyhd3 for code adaptation and re-use:
+	https://discord.com/channels/911701438269386882/911702535373475870/1229471210581000233
+*/
+
+	void loadFromItems(CCArray* p0, int p1, int p2, bool p3) {
+		if (!Mod::get()->getSettingValue<bool>("enabled")) {
+			EditButtonBar::loadFromItems(p0, p1, p2, p3);
+		} else if (Loader::get()->isModLoaded("iandyhd3.hideeditorobjects")) {
+			EditButtonBar::loadFromItems(p0, p1, p2, p3);
+			FLAlertLayer::create(
+				"SkipEditorObjects Disabled!",
+				"You appear to have <cl>iAndyHD3's Hide Editor Objects</c> mod loaded. <cj>SkipEditorObjects</c> has deferred to your configs for <cl>Hide Editor Objects</c> instead.",
+				"OK"
+			)->show();
+			Mod::get()->setSettingValue<bool>("enabled", false);
+		} else {
+			std::vector<int> objIDs;
+			auto pathCustom = (Mod::get()->getConfigDir() / "custom.txt").string();
+			std::ifstream file(pathCustom);
+			std::string objID;
+			std::smatch match;
+			while (std::getline(file, objID)) {
+				if (std::regex_match(objID, match, numbersOnly))
+				{
+					objIDs.push_back(std::stoi(objID));
+				}
+			}
+			auto newArray = CCArray::create();
+			for (int i = 0; i < p0->count(); i++) {
+				if (auto theObject = typeinfo_cast<CreateMenuItem*>(p0->objectAtIndex(i))) {
+					if (auto buttonSprite = typeinfo_cast<ButtonSprite*>(theObject->getChildren()->objectAtIndex(0))) {
+						auto buttonSpriteChildren = buttonSprite->getChildren();
+						bool customObjectFound = true;
+						for (int j = 0; j < buttonSprite->getChildrenCount(); j++) {
+							if (auto gameObject = typeinfo_cast<GameObject*>(buttonSpriteChildren->objectAtIndex(j))) {
+								customObjectFound = false;
+								if (std::find(objIDs.begin(), objIDs.end(), gameObject->m_objectID) == objIDs.end()) {
+									newArray->addObject(p0->objectAtIndex(i));
+								}
+							}
+						}
+						if (customObjectFound) {
+							newArray->addObject(p0->objectAtIndex(i)); // skip custom objects
+						}
+					}
+				} else {
+					newArray->addObject(p0->objectAtIndex(i)); // skip editor controls
+				}
+			}
+			EditButtonBar::loadFromItems(newArray, p1, p2, p3);
+		}
+	}
+};
