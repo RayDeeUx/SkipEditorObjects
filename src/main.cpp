@@ -15,6 +15,7 @@ separate object IDs by new lines like you see in this file
 i didn't include any object IDs in here by default
 (that would only cause confusion for more users in the long run, let's be honest)
 don't worry, the mod won't read any lines that arent exclusively numbers
+[NOTE THAT OBJECT IDS 914 (custom text) AND 1615 (item id counter) CANNOT BE SKIPPED AS OF V1.0.0]
 have fun!
 --raydeeux)";
 		utils::file::writeString(path, content);
