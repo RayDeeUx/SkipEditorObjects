@@ -2,7 +2,7 @@
 
 *Special thanks to [iAndyHD3](https://github.com/iAndyHD3) for making this proof-of-concept mod possible.*
 
-Ever wanted to de-clutter your object choices in the level editor?\* Have at it!
+Ever wanted to de-clutter your object choices in the level editor? Have at it!
 
 Install the mod on the Geode index for further instructions.
 
