@@ -1,7 +1,10 @@
 #include <Geode/modify/EditButtonBar.hpp>
+#include <Geode/modify/EditorUI.hpp>
 #include <regex>
 
 using namespace geode::prelude;
+
+std::vector<int> theIDs;
 
 const std::regex numbersOnly(R"(^(\d+)$)", std::regex::optimize | std::regex::icase);
 
@@ -15,11 +18,25 @@ separate object IDs by new lines like you see in this file
 i didn't include any object IDs in here by default
 (that would only cause confusion for more users in the long run, let's be honest)
 don't worry, the mod won't read any lines that arent exclusively numbers
-[NOTE THAT OBJECT IDS 914 (custom text) AND 1615 (item id counter) CANNOT BE SKIPPED AS OF V1.0.0]
 have fun!
 --raydeeux)";
 		utils::file::writeString(path, content);
 	}
+}
+
+void initVector() {
+	std::vector<int> objIDs;
+	auto pathCustom = (Mod::get()->getConfigDir() / "custom.txt").string();
+	std::ifstream file(pathCustom);
+	std::string objID;
+	std::smatch match;
+	while (std::getline(file, objID)) {
+		if (std::regex_match(objID, match, numbersOnly))
+		{
+			objIDs.push_back(std::stoi(objID));
+		}
+	}
+	theIDs = objIDs;
 }
 
 class $modify(MyEditButtonBar, EditButtonBar) {
@@ -41,17 +58,8 @@ class $modify(MyEditButtonBar, EditButtonBar) {
 			)->show();
 			Mod::get()->setSettingValue<bool>("enabled", false);
 		} else {
-			std::vector<int> objIDs;
-			auto pathCustom = (Mod::get()->getConfigDir() / "custom.txt").string();
-			std::ifstream file(pathCustom);
-			std::string objID;
-			std::smatch match;
-			while (std::getline(file, objID)) {
-				if (std::regex_match(objID, match, numbersOnly))
-				{
-					objIDs.push_back(std::stoi(objID));
-				}
-			}
+			theIDs = {}; // clear the global vector and start anew
+			initVector(); // clear the global vector and start anew
 			auto newArray = CCArray::create();
 			for (int i = 0; i < p0->count(); i++) {
 				if (auto theObject = typeinfo_cast<CreateMenuItem*>(p0->objectAtIndex(i))) {
@@ -61,7 +69,8 @@ class $modify(MyEditButtonBar, EditButtonBar) {
 						for (int j = 0; j < buttonSprite->getChildrenCount(); j++) {
 							if (auto gameObject = typeinfo_cast<GameObject*>(buttonSpriteChildren->objectAtIndex(j))) {
 								customObjectFound = false;
-								if (std::find(objIDs.begin(), objIDs.end(), gameObject->m_objectID) == objIDs.end()) {
+								auto objIDInt = gameObject->m_objectID;
+								if (std::find(theIDs.begin(), theIDs.end(), objIDInt) == theIDs.end()) {
 									newArray->addObject(p0->objectAtIndex(i));
 								}
 							}
@@ -76,5 +85,18 @@ class $modify(MyEditButtonBar, EditButtonBar) {
 			}
 			EditButtonBar::loadFromItems(newArray, p1, p2, p3);
 		}
+	}
+};
+
+class $modify(MyEditorUI, EditorUI) {
+	CreateMenuItem* getCreateBtn(int id, int bg) {
+		auto result = EditorUI::getCreateBtn(id, bg);
+		if (Mod::get()->getSettingValue<bool>("enabled") && !Loader::get()->isModLoaded("iandyhd3.hideeditorobjects")) {
+			if (theIDs.size() < 1) initVector(); // only populate global vector if not done so already
+			if ((id == 914 || id == 1615) && std::find(theIDs.begin(), theIDs.end(), id) != theIDs.end()) {
+				return CreateMenuItem::create(CCSprite::create("blank.png"_spr), nullptr, nullptr, nullptr); // return nonexistent sprite to bait previous function hook to hide the button
+			}
+		}
+		return result;
 	}
 };

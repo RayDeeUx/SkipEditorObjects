@@ -2,11 +2,9 @@
 
 *Special thanks to [iAndyHD3](user:1688850) for making this proof-of-concept mod possible.*
 
-Ever wanted to de-clutter your object choices in the level editor?\* Have at it!
+Ever wanted to de-clutter your object choices in the level editor? Have at it!
 
 Specify the objects you'd like to skip by clicking the pencil button towards the lower left corner of this screen (after installing this mod). You'll see a text file with further instructions (aptly named `custom.txt`) that you can edit.
-
-\*Disclaimer: This mod is currently unable to hide object IDs 914 (custom text object) and 1615 (Item ID counter). This issue is being investigated and a bugfix will come at a later update.
 
 For an easier reference on object IDs, please copy the level "[Object IDs New](level:99784974)" by [Colon](user:106255). (If one link doesn't work, try the other.)
 
