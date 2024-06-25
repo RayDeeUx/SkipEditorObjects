@@ -1,5 +1,5 @@
 {
-	"geode": "3.0.0",
+	"geode": "3.1.0",
 	"gd": {
 		"win": "2.206",
 		"android": "2.206"
@@ -29,5 +29,9 @@
 			"version": "*",
 			"importance": "breaking"
 		}
-	]
+	],
+	"issues": {
+		"url": "https://discord.com/channels/911701438269386882/1205523212444639292",
+		"info": "Ping me <cl>(@erymanthus)</c> in the Geode SDK Discord server's <cl>#help</c> channel if you need help. <cr>DMs are NOT accepted.</c>"
+	}
 }
