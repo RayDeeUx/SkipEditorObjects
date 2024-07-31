@@ -88,6 +88,8 @@ class $modify(MyEditButtonBar, EditButtonBar) {
 	}
 };
 
+/*
+// scuffed code because of missing 2.206 bindings
 class $modify(MyEditorUI, EditorUI) {
 	CreateMenuItem* getCreateBtn(int id, int bg) {
 		auto result = EditorUI::getCreateBtn(id, bg);
@@ -100,3 +102,4 @@ class $modify(MyEditorUI, EditorUI) {
 		return result;
 	}
 };
+*/
