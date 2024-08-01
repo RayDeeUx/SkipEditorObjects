@@ -2,7 +2,7 @@
 
 *Special thanks to [iAndyHD3](user:1688850) for making this proof-of-concept mod possible.*
 
-<cy>*Note that object IDs 914 (custom text) and 1615 (item ID counter) is not supported as of v1.1.0 due to technical limitations.*</c>
+<cy>*Note that object IDs 914 (custom text) and 1615 (item ID counter) are not supported as of v1.1.0 due to technical limitations.*</c>
 
 Ever wanted to de-clutter your object choices in the level editor? Have at it!
 
