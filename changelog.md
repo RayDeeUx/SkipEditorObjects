@@ -1,4 +1,6 @@
 # SkipEditorObjects Changelog
+## v1.1.1
+- Add support for hiding object IDs 914 (custom text) and 1615 (item ID counter) thanks to complete bindings.
 ## v1.1.0
 - Port to 2.206.
 - Remove support for hiding object IDs 914 (custom text) and 1615 (item ID counter) due to incomplete bindings.
