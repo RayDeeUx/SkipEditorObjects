@@ -6,7 +6,7 @@
 
 Ever wanted to de-clutter your object choices in the level editor? Have at it!
 
-Specify the objects you'd like to skip by clicking the pencil button towards the lower left corner of this screen (after installing this mod). You'll see a text file with further instructions (aptly named `custom.txt`) that you can edit.
+Specify the objects you'd like to skip by coing to the config directory of this mod (after installing this mod and viewing its settings). You'll see a text file with further instructions (aptly named `custom.txt`) that you can edit.
 
 For an easier reference on object IDs, please copy the level "[Object IDs New](level:99784974)" by [Colon](user:106255). (If one link doesn't work, try the other.)
 
