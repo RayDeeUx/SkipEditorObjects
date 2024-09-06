@@ -1,12 +1,17 @@
 #include <Geode/modify/EditButtonBar.hpp>
 #include <Geode/modify/EditorUI.hpp>
 #include <regex>
+#include "Settings.hpp"
 
 using namespace geode::prelude;
 
 std::vector<int> theIDs;
 
-const std::regex numbersOnly(R"(^(\d+)$)", std::regex::optimize | std::regex::icase);
+const static std::regex numbersOnly(R"(^(\d+)$)", std::regex::optimize | std::regex::icase);
+
+$on_mod(Loaded) {
+	Mod::get()->addCustomSetting<MySettingValue>("configdir", "none");
+}
 
 $on_mod(Loaded) {
 	// code adapted with permission from dialouge handler original author thesillydoggo: https://discord.com/channels/911701438269386882/911702535373475870/1212633554345918514
