@@ -10,7 +10,7 @@ std::vector<int> theIDs;
 const static std::regex numbersOnly(R"(^(\d+)$)", std::regex::optimize | std::regex::icase);
 
 $on_mod(Loaded) {
-	Mod::get()->addCustomSetting<MySettingValue>("configdir", "none");
+	Mod::get()->registerCustomSettingType("configdir", &MyButtonSettingV3::parse);
 }
 
 $on_mod(Loaded) {

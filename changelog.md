@@ -1,4 +1,6 @@
 # SkipEditorObjects Changelog
+## v1.1.2
+- Port to 2.2074.
 ## v1.1.1
 - Add support for hiding object IDs 914 (custom text) and 1615 (item ID counter) thanks to complete bindings.
 - Added config directory button shortcut.
