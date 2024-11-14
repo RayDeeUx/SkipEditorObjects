@@ -26,11 +26,9 @@
 		}
 	},
 	"resources": {
-		"spritesheets": {
-			"SingleSprite": [
-				"resources/blank.png"
-			]
-		}
+		"sprites": [
+			"resources/blank.png"
+		]
 	},
 	"incompatibilities": [
 		{
