@@ -1,4 +1,6 @@
 # SkipEditorObjects Changelog
+## v1.1.3
+- Something, I hope.
 ## v1.1.2
 - Port to 2.2074.
 ## v1.1.1
