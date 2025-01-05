@@ -60,27 +60,21 @@ class $modify(MyEditButtonBar, EditButtonBar) {
 		initVector(); // clear the global vector and start anew
 		const auto newArray = CCArray::create();
 		for (int i = 0; i < p0->count(); i++) {
-			const auto cocosObjAtIndexI = p0->objectAtIndex(i);
-			const auto createMenuItem = typeinfo_cast<CreateMenuItem*>(cocosObjAtIndexI);
-			if (!createMenuItem) {
-				newArray->addObject(cocosObjAtIndexI); // skip editor controls
-				continue;
-			}
-			const auto buttonSprite = typeinfo_cast<ButtonSprite*>(createMenuItem->getChildren()->objectAtIndex(0));
-			if (!buttonSprite) {
-				newArray->addObject(cocosObjAtIndexI); // skip editor controls
-				continue;
-			}
-			const auto buttonSpriteChildren = buttonSprite->getChildren();
-			bool customObjectFound = true;
-			for (int j = 0; j < buttonSprite->getChildrenCount(); j++) {
-				const auto gameObject = typeinfo_cast<GameObject*>(buttonSpriteChildren->objectAtIndex(j));
-				if (!gameObject) continue;
-				customObjectFound = false;
-				if (std::ranges::find(theIDs.begin(), theIDs.end(), gameObject->m_objectID) != theIDs.end()) continue;
-				newArray->addObject(cocosObjAtIndexI);
-			}
-			if (customObjectFound) newArray->addObject(cocosObjAtIndexI); // skip custom objects
+			const auto objAtIndexI = p0->objectAtIndex(i);
+			if (const auto theObject = typeinfo_cast<CreateMenuItem*>(objAtIndexI)) {
+				if (const auto buttonSprite = typeinfo_cast<ButtonSprite*>(theObject->getChildren()->objectAtIndex(0))) {
+					const auto buttonSpriteChildren = buttonSprite->getChildren();
+					bool customObjectFound = true;
+					for (int j = 0; j < buttonSprite->getChildrenCount(); j++) {
+						if (const auto gameObject = typeinfo_cast<GameObject*>(buttonSpriteChildren->objectAtIndex(j))) {
+							customObjectFound = false;
+							if (std::ranges::find(theIDs.begin(), theIDs.end(), gameObject->m_objectID) == theIDs.end())
+								newArray->addObject(objAtIndexI);
+						}
+					}
+					if (customObjectFound) newArray->addObject(objAtIndexI); // skip custom objects
+				}
+			} else newArray->addObject(objAtIndexI); // skip editor controls
 		}
 		EditButtonBar::loadFromItems(newArray, p1, p2, p3);
 	}
