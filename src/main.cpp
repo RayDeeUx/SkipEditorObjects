@@ -91,9 +91,8 @@ class $modify(MyEditorUI, EditorUI) {
 		const auto result = EditorUI::getCreateBtn(id, bg);
 		if (!Mod::get()->getSettingValue<bool>("enabled") || Loader::get()->isModLoaded("iandyhd3.hideeditorobjects")) return result;
 		if (theIDs.empty()) initVector(); // only populate global vector if not done so already
-		if ((id == 914 || id == 1615) && std::ranges::find(theIDs.begin(), theIDs.end(), id) != theIDs.end()) {
+		if ((id == 914 || id == 1615) && std::ranges::find(theIDs.begin(), theIDs.end(), id) != theIDs.end())
 			return CreateMenuItem::create(CCSprite::create("blank.png"_spr), nullptr, nullptr, nullptr); // return nonexistent sprite to bait previous function hook to hide the button
-		}
 		return result;
 	}
 };
