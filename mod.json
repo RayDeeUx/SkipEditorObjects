@@ -8,21 +8,25 @@
 	"version": "v1.1.3",
 	"id": "raydeeux.skipeditorobjects",
 	"name": "SkipEditorObjects",
-	"developers": ["RayDeeUx", "iAndyHD3"],
+	"developer": "RayDeeUx",
 	"description": "Skips objects of your choice in the Editor UI using txt files.",
 	"repository": "https://github.com/RayDeeUx/SkipEditorObjects",
 	"settings": {
 		"enabled": {
 			"name": "Enabled",
-			"description": "Toggles the mod.\n\n<cy>Note: This softoggle will be off if</c> <cl>iAndyHD3's Hide Editor Objects</c> <cy>mod is loaded</c>.",
+			"description": "Toggles the mod.\n\n<cy>Note: This softtoggle will be off if</c> <cl>iAndyHD3's Hide Editor Objects</c> <cy>mod is loaded</c>.",
 			"type": "bool",
 			"default": true
 		},
 		"configdir": {
 			"name": "Click me to open the Config Directory!",
-			"description": "Opens the config directory.",
-			"desc": "<cy>(Hopefully.)</c>\nThis setting does literally nothing new except being a button that acts as a shortcut to open the config directory for this mod (which is kind of important for using this mod properly, because this is where you will store your object IDs to hide/skip), because the legendary developers in the Geode Team themselves forgot to add a shortcut button that would have done this exact same thing, and I have gotten far too many folks (rightfully) asking me to find the config directory when using some of my other mods, and I hate repeating the same things over and over again, and I don't know if the next major update for Geode will also repeat this mistake where HJfod forgets to include a config directory shortcut button, so this setting and this button are here for extra insurance, so please enjoy this extra button, I guess. Anyway, by the time you're finished reading this, your device should be finished with opening the config directory; press \"Aight\" to close this window.",
+			"description": "<cy>(Hopefully.)</c>\nThis setting does literally nothing new except being a button that acts as a shortcut to open the config directory for this mod (which is kind of important for using this mod properly, because this is where you will store your object IDs to hide/skip), because the legendary developers in the Geode Team themselves forgot to add a shortcut button that would have done this exact same thing, and I have gotten far too many folks (rightfully) asking me to find the config directory when using some of my other mods, and I hate repeating the same things over and over again, and I don't know if the next major update for Geode will also repeat this mistake where HJfod forgets to include a config directory shortcut button, so this setting and this button are here for extra insurance, so please enjoy this extra button, I guess. Anyway, by the time you're finished reading this, your device should be finished with opening the config directory; press \"Aight\" to close this window.",
 			"type": "custom:configdir"
+		},
+		"resourcedir": {
+			"name": "Click me to open the Resources Directory!",
+			"description": "<cy>(Hopefully.)</c>\nThis setting does literally nothing new except being a button that acts as a shortcut to open the resource directory for this mod (which is kind of important for using this mod properly, because this is where you will find the preset files), and I hate repeating the same things over and over again, so this setting and this button are here for extra insurance, so please enjoy this extra button, I guess. Anyway, by the time you're finished reading this, your device should be finished with opening the resource directory; press \"Aight\" to close this window.",
+			"type": "custom:resourcedir"
 		}
 	},
 	"resources": {

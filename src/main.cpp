@@ -11,6 +11,7 @@ static const std::regex numbersOnly(R"(^(\d+)$)", std::regex::optimize | std::re
 
 $on_mod(Loaded) {
 	(void) Mod::get()->registerCustomSettingType("configdir", &MyButtonSettingV3::parse);
+	(void) Mod::get()->registerCustomSettingType("resourcedir", &MyButtonSettingV3::parse);
 	// code adapted with permission from dialouge handler original author thesillydoggo: https://discord.com/channels/911701438269386882/911702535373475870/1212633554345918514
 	const auto path = (Mod::get()->getConfigDir() / "custom.txt").string();
 	if (!std::filesystem::exists(path)) {
@@ -41,7 +42,7 @@ void initVector() {
 class $modify(MyEditButtonBar, EditButtonBar) {
 
 /*
-	proof of consent from iandyhd3 for code adaptation and re-use:
+	proof of consent for code adaptation and re-use:
 	https://discord.com/channels/911701438269386882/911702535373475870/1229471210581000233
 */
 

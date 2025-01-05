@@ -14,15 +14,9 @@ public:
 		res->parseEnableIf(root);
 		return root.ok(std::static_pointer_cast<SettingV3>(res));
 	}
-	bool load(matjson::Value const& json) override {
-		return true;
-	}
-	bool save(matjson::Value& json) const override {
-		return true;
-	}
-	bool isDefaultValue() const override {
-		return true;
-	}
+	bool load(matjson::Value const& json) override { return true; }
+	bool save(matjson::Value& json) const override { return true; }
+	bool isDefaultValue() const override { return true; }
 	void reset() override {}
 	// SettingNodeV3* createNode(float width) override; // this line is [absolutely] certified cringe
 	SettingNodeV3 *createNode(float width) override; // this line is NOT certified cringe
@@ -30,22 +24,21 @@ public:
 
 class MyButtonSettingNodeV3 : public SettingNodeV3 {
 private:
+	std::string m_title = "";
 	std::string m_desc = "";
 public:
 	void onCommit() {}
 	void onResetToDefault() {}
-	bool hasUncommittedChanges() const {
-		return false;
-	}
-	bool hasNonDefaultValue() const {
-		return false;
-	}
-	void onConfigDirButton(CCObject*) {
-		file::openFolder(Mod::get()->getConfigDir());
+	bool hasUncommittedChanges() const { return false; }
+	bool hasNonDefaultValue() const { return false; }
+	void onButton(CCObject*) {
+		std::string filler = utils::string::split(m_title, " ").at(5);
+		if (filler == "Config") file::openFolder(Mod::get()->getConfigDir());
+		else file::openFolder(Mod::get()->getResourcesDir());
 		#ifndef GEODE_IS_MOBILE
 		if (!CCKeyboardDispatcher::get()->getShiftKeyPressed()) return;
 		FLAlertLayer::create(
-			"Config Directory Opened!",
+			fmt::format("{} Directory Opened!", filler).c_str(),
 			m_desc,
 			"Aight"
 		)->show();
@@ -54,16 +47,16 @@ public:
 	bool init(std::shared_ptr<MyButtonSettingV3> setting, float width) {
 		if (!SettingNodeV3::init(setting, width)) return false;
 		this->setContentSize({ width, 40.f });
-		std::string name = setting->getName().value();
+		m_title = setting->getName().value();
 		m_desc = setting->getDescription().value();
 		auto theMenu = CCMenu::create();
-		auto theLabel = CCLabelBMFont::create(name.c_str(), "bigFont.fnt");
+		auto theLabel = CCLabelBMFont::create(m_title.c_str(), "bigFont.fnt");
 
 		// copied a bit from louis ck jr
 		theLabel->setScale(.35f);
 		theLabel->limitLabelWidth(300.f, .35f, .25f); // added by Ery. max width is 346.f
 
-		auto theLabelAsAButton = CCMenuItemSpriteExtra::create(theLabel, this, menu_selector(MyButtonSettingNodeV3::onConfigDirButton));
+		auto theLabelAsAButton = CCMenuItemSpriteExtra::create(theLabel, this, menu_selector(MyButtonSettingNodeV3::onButton));
 
 		theLabelAsAButton->setPositionX(0);
 		theLabelAsAButton->setID("config-dir-shortcut-button"_spr);

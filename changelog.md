@@ -1,6 +1,8 @@
 # SkipEditorObjects Changelog
 ## v1.1.3
-- Something, I hope.
+- Refactor code.
+- Added preset files, in light of Retro Edit being delisted. Enjoy.
+  - The presets don't do anything besides being an ease-of-access resource.
 ## v1.1.2
 - Port to 2.2074.
 ## v1.1.1
