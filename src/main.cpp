@@ -69,11 +69,11 @@ class $modify(MyEditButtonBar, EditButtonBar) {
 			if (!buttonSprite) continue;
 			bool customObjectFound = true;
 			for (int j = 0; j < buttonSprite->getChildrenCount(); j++) {
-				if (const auto gameObject = typeinfo_cast<GameObject*>(buttonSprite->getChildren()->objectAtIndex(j))) {
-					customObjectFound = false;
-					if (std::ranges::find(theIDs.begin(), theIDs.end(), gameObject->m_objectID) == theIDs.end())
-						newArray->addObject(object);
-				}
+				const auto gameObject = typeinfo_cast<GameObject*>(buttonSprite->getChildren()->objectAtIndex(j));
+				if (!gameObject) continue;
+				customObjectFound = false;
+				if (std::ranges::find(theIDs.begin(), theIDs.end(), gameObject->m_objectID) != theIDs.end()) continue;
+				newArray->addObject(object);
 			}
 			if (customObjectFound) newArray->addObject(object); // skip custom objects
 		}
