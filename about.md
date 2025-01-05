@@ -8,6 +8,8 @@ Specify the objects you'd like to skip by coing to the config directory of this 
 
 For an easier reference on object IDs, please copy the level "[Object IDs New](level:99784974)" by [Colon](user:106255). (If one link doesn't work, try the other.)
 
+Preset files to hide objects that were unavailable during each historical Geometry Dash version are also available in the mod's resources directory. Check the mod's settings for a shortcut to that directory.
+
 Note that this mod does *not* stop you from placing object IDs specified in your `custom.txt` file, it only hides the button in the Editor UI.
 
 For JSON-literate folks, also check out RaZoom's `Object Groups` mod.
