@@ -1,3 +1,17 @@
+Hey there! This is a preset file to hide objects that did not exist in Geometry Dash version 1.8!
+There's no guarantee that this is 100% accurate to the objects that were available in 1.8,
+but this should be a far better starting point than a blank text file.
++———————————————————————————————————————————————————————————————————————————————+
+|	 MAKE SURE TO COPYPASTE ALL THE NUMBERS INTO YOUR custom.txt FILE.	|
+| 										|
+|		IT IS THE ONLY FILE THE MOD WILL READ TO DETERMINE		|
+|		   WHICH OBJECTS TO HIDE IN THE LEVEL EDITOR UI.		|
+| 										|
+| 		COPYPASTING THE FILE ITSELF WILL HAVE NO EFFECT.		|
++———————————————————————————————————————————————————————————————————————————————+
+Feel free to check the follow Google Sheets resource by Cvolton for more info:
+https://docs.google.com/spreadsheets/d/18R2_qBXa9iCZZ6bhfSpxEah3YLRGeBSk/edit?gid=1548182088#gid=1548182088
+--RayDeeUx, from the SkipEditorObjects mod
 506
 507
 508
