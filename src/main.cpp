@@ -59,22 +59,23 @@ class $modify(MyEditButtonBar, EditButtonBar) {
 		theIDs = {}; // clear the global vector and start anew
 		initVector(); // clear the global vector and start anew
 		const auto newArray = CCArray::create();
-		for (int i = 0; i < p0->count(); i++) {
-			const auto objAtIndexI = p0->objectAtIndex(i);
-			if (const auto theObject = typeinfo_cast<CreateMenuItem*>(objAtIndexI)) {
-				if (const auto buttonSprite = typeinfo_cast<ButtonSprite*>(theObject->getChildren()->objectAtIndex(0))) {
-					const auto buttonSpriteChildren = buttonSprite->getChildren();
-					bool customObjectFound = true;
-					for (int j = 0; j < buttonSprite->getChildrenCount(); j++) {
-						if (const auto gameObject = typeinfo_cast<GameObject*>(buttonSpriteChildren->objectAtIndex(j))) {
-							customObjectFound = false;
-							if (std::ranges::find(theIDs.begin(), theIDs.end(), gameObject->m_objectID) == theIDs.end())
-								newArray->addObject(objAtIndexI);
-						}
-					}
-					if (customObjectFound) newArray->addObject(objAtIndexI); // skip custom objects
+		for (CCObject* object : CCArrayExt<CCObject*>(p0)) {
+			const auto theObject = typeinfo_cast<CreateMenuItem*>(object);
+			if (!theObject) {
+				newArray->addObject(object);
+				continue;
+			}
+			const auto buttonSprite = typeinfo_cast<ButtonSprite*>(theObject->getChildren()->objectAtIndex(0));
+			if (!buttonSprite) continue;
+			bool customObjectFound = true;
+			for (int j = 0; j < buttonSprite->getChildrenCount(); j++) {
+				if (const auto gameObject = typeinfo_cast<GameObject*>(buttonSprite->getChildren()->objectAtIndex(j))) {
+					customObjectFound = false;
+					if (std::ranges::find(theIDs.begin(), theIDs.end(), gameObject->m_objectID) == theIDs.end())
+						newArray->addObject(object);
 				}
-			} else newArray->addObject(objAtIndexI); // skip editor controls
+			}
+			if (customObjectFound) newArray->addObject(object); // skip custom objects
 		}
 		EditButtonBar::loadFromItems(newArray, p1, p2, p3);
 	}
@@ -82,11 +83,13 @@ class $modify(MyEditButtonBar, EditButtonBar) {
 
 class $modify(MyEditorUI, EditorUI) {
 	CreateMenuItem* getCreateBtn(int id, int bg) {
-		const auto result = EditorUI::getCreateBtn(id, bg);
-		if (!Mod::get()->getSettingValue<bool>("enabled") || Loader::get()->isModLoaded("iandyhd3.hideeditorobjects")) return result;
-		if (theIDs.empty()) initVector(); // only populate global vector if not done so already
-		if ((id == 914 || id == 1615) && std::ranges::find(theIDs.begin(), theIDs.end(), id) != theIDs.end())
-			return CreateMenuItem::create(CCSprite::create("blank.png"_spr), nullptr, nullptr, nullptr); // return nonexistent sprite to bait previous function hook to hide the button
+		auto result = EditorUI::getCreateBtn(id, bg);
+		if (Mod::get()->getSettingValue<bool>("enabled") && !Loader::get()->isModLoaded("iandyhd3.hideeditorobjects")) {
+			if (theIDs.empty()) initVector(); // only populate global vector if not done so already
+			if ((id == 914 || id == 1615) && std::ranges::find(theIDs.begin(), theIDs.end(), id) != theIDs.end()) {
+				return CreateMenuItem::create(CCSprite::create("blank.png"_spr), nullptr, nullptr, nullptr); // return nonexistent sprite to bait previous function hook to hide the button
+			}
+		}
 		return result;
 	}
 };
