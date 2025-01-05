@@ -1,6 +1,6 @@
 # SkipEditorObjects
 
-<cy>*Note that object IDs 914 (custom text) and 1615 (item ID counter) may not supported (depending on what the changelog says) due to technical limitations between game versions.*</c>
+<cy>*Note that object IDs 914 (custom text) and 1615 (item ID counter) may not be supported (depending on what the changelog says) due to technical limitations between game versions.*</c>
 
 Ever wanted to de-clutter your object choices in the level editor? Have at it!
 
@@ -10,7 +10,7 @@ For an easier reference on object IDs, please copy the level "[Object IDs New](l
 
 Note that this mod does *not* stop you from placing object IDs specified in your `custom.txt` file, it only hides the button in the Editor UI.
 
-For JSON-literate folks, or for people who would like to hide objects based on historical Geometry Dash game versions, please use iAndyHD3's `Hide Editor Objects` mod whenever it is available on the index.
+For JSON-literate folks, also check out RaZoom's `Object Groups` mod.
 
 Mod idea by [etherealxx](https://twitter.com/mjwathon) and [AutumnFlowa](https://twitter.com/AutumnFlowa).
 
