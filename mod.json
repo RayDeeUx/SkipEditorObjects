@@ -8,7 +8,7 @@
 	"version": "v1.1.3",
 	"id": "raydeeux.skipeditorobjects",
 	"name": "SkipEditorObjects",
-	"developer": "RayDeeUx",
+	"developers": ["RayDeeUx", "iAndyHD3"],
 	"description": "Skips objects of your choice in the Editor UI using txt files.",
 	"repository": "https://github.com/RayDeeUx/SkipEditorObjects",
 	"settings": {

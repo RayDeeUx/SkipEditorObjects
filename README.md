@@ -1,5 +1,7 @@
 # SkipEditorObjects
 
+*Special thanks to [iAndyHD3](https://github.com/iAndyHD3) for making this proof-of-concept mod possible.*
+
 <cy>*Note that object IDs 914 (custom text) and 1615 (item ID counter) may not be supported (depending on what the changelog says) due to technical limitations between game versions.*</c>
 
 Ever wanted to de-clutter your object choices in the level editor? Have at it!

@@ -42,7 +42,7 @@ void initVector() {
 class $modify(MyEditButtonBar, EditButtonBar) {
 
 /*
-	proof of consent for code adaptation and re-use:
+	proof of consent from iandyhd3 for code adaptation and re-use:
 	https://discord.com/channels/911701438269386882/911702535373475870/1229471210581000233
 */
 
