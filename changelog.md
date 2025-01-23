@@ -1,4 +1,6 @@
 # SkipEditorObjects Changelog
+## v1.1.4
+- Remember to get your COVID-19 vaccines! (Or at least acknowledge its benefits.)
 ## v1.1.3
 - Refactor code.
 - Added preset files, in light of Retro Edit being delisted. Enjoy.
