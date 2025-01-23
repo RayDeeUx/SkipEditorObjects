@@ -25,6 +25,7 @@ have fun!
 --raydeeux)";
 		(void) utils::file::writeString(path, content);
 	}
+	initVector();
 }
 
 void initVector() {
@@ -52,8 +53,7 @@ class $modify(MyEditButtonBar, EditButtonBar) {
 			Mod::get()->setSettingValue<bool>("enabled", false);
 			return EditButtonBar::loadFromItems(p0, p1, p2, p3);
 		}
-		theIDs = {}; // clear the global vector and start anew
-		initVector(); // clear the global vector and start anew
+		if (theIDs.empty()) initVector();
 		const auto newArray = CCArray::create();
 		for (CCObject* object : CCArrayExt<CCObject*>(p0)) {
 			const auto theObject = typeinfo_cast<CreateMenuItem*>(object);
