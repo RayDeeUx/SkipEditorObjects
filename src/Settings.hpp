@@ -2,6 +2,8 @@
 
 #include <Geode/loader/SettingV3.hpp>
 
+#include "Utils.hpp"
+
 using namespace geode::prelude;
 
 class MyButtonSettingV3 : public SettingV3 {
@@ -33,7 +35,8 @@ public:
 	bool hasNonDefaultValue() const { return false; }
 	void onButton(CCObject*) {
 		std::string filler = utils::string::split(m_title, " ").at(5);
-		if (filler == "Config") file::openFolder(Mod::get()->getConfigDir());
+		if (filler == "Skipped") Utils::initVector(true);
+		else if (filler == "Config") file::openFolder(Mod::get()->getConfigDir());
 		else file::openFolder(Mod::get()->getResourcesDir());
 		#ifndef GEODE_IS_MOBILE
 		if (!CCKeyboardDispatcher::get()->getShiftKeyPressed()) return;

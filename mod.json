@@ -27,6 +27,11 @@
 			"name": "Click me to open the Resources Directory!",
 			"description": "<cy>(Hopefully.)</c>\nThis setting does literally nothing new except being a button that acts as a shortcut to open the resources directory for this mod (which is kind of important for using this mod properly, because this is where you will find the preset files), and I hate repeating the same things over and over again, so this setting and this button are here for extra insurance, so please enjoy this extra button, I guess. Anyway, by the time you're finished reading this, your device should be finished with opening the resource directory; press \"Aight\" to close this window.",
 			"type": "custom:resourcedir"
+		},
+		"refresh": {
+			"name": "Click me to refresh your Skipped Objects!",
+			"description": "<cy>(Hopefully.)</c>",
+			"type": "custom:refresh"
 		}
 	},
 	"resources": {
