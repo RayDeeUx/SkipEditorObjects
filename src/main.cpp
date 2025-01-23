@@ -42,20 +42,15 @@ void initVector() {
 class $modify(MyEditButtonBar, EditButtonBar) {
 
 /*
-	proof of consent from iandyhd3 for code adaptation and re-use:
+	proof of consent for code adaptation and re-use:
 	https://discord.com/channels/911701438269386882/911702535373475870/1229471210581000233
 */
 
 	void loadFromItems(CCArray* p0, int p1, int p2, bool p3) {
 		if (!Mod::get()->getSettingValue<bool>("enabled")) return EditButtonBar::loadFromItems(p0, p1, p2, p3);
 		if (Loader::get()->isModLoaded("iandyhd3.hideeditorobjects")) {
-			EditButtonBar::loadFromItems(p0, p1, p2, p3);
 			Mod::get()->setSettingValue<bool>("enabled", false);
-			return FLAlertLayer::create(
-				"SkipEditorObjects Disabled!",
-				"You appear to have <cl>iAndyHD3's Hide Editor Objects</c> mod loaded. <cj>SkipEditorObjects</c> has deferred to your configs for <cl>Hide Editor Objects</c> instead.",
-				"OK"
-			)->show();
+			return EditButtonBar::loadFromItems(p0, p1, p2, p3);
 		}
 		theIDs = {}; // clear the global vector and start anew
 		initVector(); // clear the global vector and start anew
