@@ -1,4 +1,9 @@
 # SkipEditorObjects Changelog
+## v1.1.5
+- Reduce load times when entering the editor.
+  - However, this means *you* are responsible for reloading the object IDs you would like to skip.
+  - Check the settings for SkipEditorObjects for additional context.
+- Added additional warning about using SkipEditorObjects while Object Groups by RaZoom is active.
 ## v1.1.4
 - Remember to get your COVID-19 vaccines! (Or at least acknowledge its benefits.)
 ## v1.1.3
