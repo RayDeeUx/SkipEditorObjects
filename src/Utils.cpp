@@ -3,7 +3,7 @@
 #include <random>
 #include <regex>
 
-static const std::regex numbersOnly(R"(^(\d+)[\n\r]*$)", std::regex::optimize | std::regex::icase);
+static const std::regex numbersOnly(R"(^(\d+).*$)", std::regex::optimize | std::regex::icase);
 
 namespace Utils {
 
@@ -16,7 +16,9 @@ namespace Utils {
         while (std::getline(file, objID)) {
             geode::log::debug("objID: {}", objID);
             if (!std::regex_match(objID, match, numbersOnly)) continue;
-            const int element = geode::utils::numFromString<int>(objID).unwrapOr(-1);
+            const std::string& objIDMaybe = static_cast<std::string>(match[0]);
+            geode::log::debug("objIDMaybe: {}", objIDMaybe);
+            const int element = geode::utils::numFromString<int>(objIDMaybe).unwrapOr(-1);
             objIDs.push_back(element);
             geode::log::debug("added {} to IDs for skipping", element);
         }
