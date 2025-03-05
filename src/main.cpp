@@ -6,7 +6,7 @@
 #include "Utils.hpp"
 
 #define INIT_VECTOR if (manager->theIDs.empty()) Utils::initVector();
-#define VECTOR_DOESNT_CONTAIN_ID std::ranges::find(manager->theIDs.begin(), manager->theIDs.end(), id) != manager->theIDs.end()
+#define VECTOR_DOES_CONTAIN_ID std::ranges::find(manager->theIDs.begin(), manager->theIDs.end(), id) != manager->theIDs.end()
 #define LOADER_LOADED Loader::get()->isModLoaded
 #define MOD_IS_ENABLED Mod::get()->getSettingValue<bool>("enabled")
 #define GET_MANAGER Manager* manager = Manager::getSharedInstance();
@@ -68,8 +68,7 @@ class $modify(MyEditButtonBar, EditButtonBar) {
 				const auto gameObject = typeinfo_cast<GameObject*>(buttonSprite->getChildren()->objectAtIndex(j));
 				if (!gameObject) continue;
 				customObjectFound = false;
-				const int& id = gameObject->m_objectID;
-				if (VECTOR_DOESNT_CONTAIN_ID) continue;
+				if (const int id = gameObject->m_objectID; VECTOR_DOES_CONTAIN_ID) continue;
 				newArray->addObject(object);
 			}
 			if (customObjectFound) newArray->addObject(object); // skip custom objects
@@ -101,7 +100,7 @@ class $modify(MyEditorUI, EditorUI) {
 		if (!MOD_IS_ENABLED || LOADER_LOADED("iandyhd3.hideeditorobjects")) return result;
 		GET_MANAGER
 		INIT_VECTOR // only populate global vector if not done so already
-		if ((id == 914 || id == 1615) && VECTOR_DOESNT_CONTAIN_ID)
+		if ((id == 914 || id == 1615) && VECTOR_DOES_CONTAIN_ID)
 			return CreateMenuItem::create(CCSprite::create("blank.png"_spr), nullptr, nullptr, nullptr); // return nonexistent sprite to bait previous function hook to hide the button
 		return result;
 	}

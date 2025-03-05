@@ -9,7 +9,7 @@ but this should be a far better starting point than a blank text file.
 | 										|
 | 		COPYPASTING THE FILE ITSELF WILL HAVE NO EFFECT.		|
 +———————————————————————————————————————————————————————————————————————————————+
-Feel free to check the follow Google Sheets resource by Cvolton for more info:
+Feel free to check the following Google Sheets resource by Cvolton for more info:
 https://docs.google.com/spreadsheets/d/18R2_qBXa9iCZZ6bhfSpxEah3YLRGeBSk/edit?gid=1548182088#gid=1548182088
 --RayDeeUx, from the SkipEditorObjects mod
 48

@@ -2,6 +2,7 @@
 
 #include <Geode/loader/SettingV3.hpp>
 
+#include "Manager.hpp"
 #include "Utils.hpp"
 
 using namespace geode::prelude;
@@ -35,9 +36,12 @@ public:
 	bool hasNonDefaultValue() const { return false; }
 	void onButton(CCObject*) {
 		std::string filler = utils::string::split(m_title, " ").at(5);
-		if (filler == "Skipped") Utils::initVector(true);
-		else if (filler == "Config") file::openFolder(Mod::get()->getConfigDir());
-		else file::openFolder(Mod::get()->getResourcesDir());
+		if (filler == "Skipped") {
+			Manager::getSharedInstance()->theIDs.clear();
+			return Utils::initVector(true);
+		}
+		if (filler == "Config") return (void) file::openFolder(Mod::get()->getConfigDir());
+		(void) file::openFolder(Mod::get()->getResourcesDir());
 		#ifndef GEODE_IS_MOBILE
 		if (!CCKeyboardDispatcher::get()->getShiftKeyPressed()) return;
 		FLAlertLayer::create(

@@ -1,4 +1,7 @@
 # SkipEditorObjects Changelog
+## v1.1.6
+- Revise regex to be a bit less strict.
+- Fix a typo in the preset files.
 ## v1.1.5
 - Reduce load times when entering the editor.
   - However, this means *you* are responsible for reloading the object IDs you would like to skip.
