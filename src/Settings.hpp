@@ -36,10 +36,7 @@ public:
 	bool hasNonDefaultValue() const { return false; }
 	void onButton(CCObject*) {
 		std::string filler = utils::string::split(m_title, " ").at(5);
-		if (filler == "Skipped") {
-			Manager::getSharedInstance()->theIDs.clear();
-			return Utils::initVector(true);
-		}
+		if (filler == "Skipped") return Utils::initVector(true, false);
 		if (filler == "Config") return (void) file::openFolder(Mod::get()->getConfigDir());
 		(void) file::openFolder(Mod::get()->getResourcesDir());
 		#ifndef GEODE_IS_MOBILE

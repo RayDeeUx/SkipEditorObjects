@@ -6,24 +6,19 @@
 static const std::regex numbersOnly(R"(^(\d+).*$)", std::regex::optimize | std::regex::icase);
 
 namespace Utils {
-
-    void initVector(bool showAlert) {
-        std::vector<int> objIDs;
+    void initVector(const bool showAlert, const bool fromOnModLoaded) {
+        Manager* manager = Manager::getSharedInstance();
+        manager->theIDs.clear();
         auto pathCustom = (geode::Mod::get()->getConfigDir() / "custom.txt").string();
         std::ifstream file(pathCustom);
         std::string objID;
         std::smatch match;
         while (std::getline(file, objID)) {
-            geode::log::debug("objID: {}", objID);
             if (!std::regex_match(objID, match, numbersOnly)) continue;
-            const std::string& objIDMaybe = static_cast<std::string>(match[0]);
-            geode::log::debug("objIDMaybe: {}", objIDMaybe);
-            const int element = geode::utils::numFromString<int>(objIDMaybe).unwrapOr(-1);
-            objIDs.push_back(element);
-            geode::log::debug("added {} to IDs for skipping", element);
+            if (const int element = geode::utils::numFromString<int>(static_cast<std::string>(match[0])).unwrapOr(-1); element != -1) manager->theIDs.push_back(element);
         }
-        Manager::getSharedInstance()->theIDs = objIDs;
-        if (showAlert) FLAlertLayer::create("Success!", "Your object IDs have been loaded.", "Close")->show();
+        if (showAlert || fromOnModLoaded) manager->isEmpty = manager->theIDs.empty();
+        if (showAlert) FLAlertLayer::create("Success!", fmt::format("Your object IDs have been loaded.\n\nDebug info:\n<cg>fromOnModLoaded</c>: {}\n<cg>manager->isEmpty</c>: {}", fromOnModLoaded, manager->isEmpty), "Close")->show();
     }
 
     int randomInt(const int& min, const int& max) {
@@ -32,5 +27,4 @@ namespace Utils {
         std::uniform_int_distribution<int> uni(min, max);
         return uni(rng);
     }
-
 }

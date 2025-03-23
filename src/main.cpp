@@ -5,7 +5,7 @@
 #include "Manager.hpp"
 #include "Utils.hpp"
 
-#define INIT_VECTOR if (manager->theIDs.empty()) Utils::initVector();
+#define IF_VECTOR_EMPTY_RETURN if (manager->isEmpty) return
 #define VECTOR_DOES_CONTAIN_ID std::ranges::find(manager->theIDs.begin(), manager->theIDs.end(), id) != manager->theIDs.end()
 #define LOADER_LOADED Loader::get()->isModLoaded
 #define MOD_IS_ENABLED Mod::get()->getSettingValue<bool>("enabled")
@@ -36,7 +36,7 @@ have fun!
 --raydeeux)";
 		(void) utils::file::writeString(path, content);
 	}
-	Utils::initVector();
+	Utils::initVector(false, true);
 }
 
 class $modify(MyEditButtonBar, EditButtonBar) {
@@ -53,7 +53,7 @@ class $modify(MyEditButtonBar, EditButtonBar) {
 			return EditButtonBar::loadFromItems(p0, p1, p2, p3);
 		}
 		GET_MANAGER
-		INIT_VECTOR
+		IF_VECTOR_EMPTY_RETURN EditButtonBar::loadFromItems(p0, p1, p2, p3);
 		const auto newArray = CCArray::create();
 		for (CCObject* object : CCArrayExt<CCObject*>(p0)) {
 			const auto theObject = typeinfo_cast<CreateMenuItem*>(object);
@@ -83,6 +83,7 @@ class $modify(MyEditorUI, EditorUI) {
 		if (!MOD_IS_ENABLED) return;
 		if (sender->getTag() != 2) return;
 		if (!LOADER_LOADED("razoom.object_groups")) return;
+		GET_MANAGER IF_VECTOR_EMPTY_RETURN;
 		if (Mod::get()->getSavedValue<bool>("shownObjectGroupsWarning") && Utils::randomInt() != 1) return;
 		Mod::get()->setSavedValue<bool>("shownObjectGroupsWarning", true);
 		geode::createQuickPopup(
@@ -99,7 +100,7 @@ class $modify(MyEditorUI, EditorUI) {
 		const auto result = EditorUI::getCreateBtn(id, bg);
 		if (!MOD_IS_ENABLED || LOADER_LOADED("iandyhd3.hideeditorobjects")) return result;
 		GET_MANAGER
-		INIT_VECTOR // only populate global vector if not done so already
+		IF_VECTOR_EMPTY_RETURN result;
 		if ((id == 914 || id == 1615) && VECTOR_DOES_CONTAIN_ID)
 			return CreateMenuItem::create(CCSprite::create("blank.png"_spr), nullptr, nullptr, nullptr); // return nonexistent sprite to bait previous function hook to hide the button
 		return result;
