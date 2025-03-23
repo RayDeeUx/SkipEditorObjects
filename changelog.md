@@ -1,4 +1,6 @@
 # SkipEditorObjects Changelog
+## v1.1.7
+- Optimize things *one* last time.
 ## v1.1.6
 - Revise regex to be a bit less strict.
 - Fix a typo in the preset files.
