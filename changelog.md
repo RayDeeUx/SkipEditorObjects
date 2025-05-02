@@ -1,4 +1,6 @@
 # SkipEditorObjects Changelog
+## v1.1.8
+- Experimental iOS support.
 ## v1.1.7
 - Optimize things *one* last time.
 ## v1.1.6
