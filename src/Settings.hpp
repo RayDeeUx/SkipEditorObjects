@@ -40,6 +40,7 @@ public:
 			const std::string& fileToParse = Mod::get()->getSettingValue<std::string>("fileToParse");
 			if (!Utils::checkIfFileToParseExists(fileToParse)) Utils::initVector(true, false);
 			else Utils::initVector(true, false, Mod::get()->getResourcesDir() / fmt::format("{}.txt", fileToParse));
+			return;
 		}
 		if (filler == "Config") return (void) file::openFolder(Mod::get()->getConfigDir());
 		(void) file::openFolder(Mod::get()->getResourcesDir());
