@@ -36,7 +36,11 @@ public:
 	bool hasNonDefaultValue() const { return false; }
 	void onButton(CCObject*) {
 		std::string filler = utils::string::split(m_title, " ").at(5);
-		if (filler == "Skipped") return Utils::initVector(true, false);
+		if (filler == "Skipped") {
+			const std::string& fileToParse = Mod::get()->getSettingValue<std::string>("fileToParse");
+			if (!Utils::checkIfFileToParseExists(fileToParse)) Utils::initVector(true, false);
+			else Utils::initVector(true, false, Mod::get()->getResourcesDir() / fmt::format("{}.txt", fileToParse));
+		}
 		if (filler == "Config") return (void) file::openFolder(Mod::get()->getConfigDir());
 		(void) file::openFolder(Mod::get()->getResourcesDir());
 		#ifndef GEODE_IS_MOBILE

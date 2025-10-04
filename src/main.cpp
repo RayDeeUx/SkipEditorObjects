@@ -36,11 +36,12 @@ have fun!
 --raydeeux)";
 		(void) utils::file::writeString(path, content);
 	}
-	Utils::initVector(false, true);
+	const std::string& fileToParseSetting = Mod::get()->getSettingValue<std::string>("fileToParse");
+	if (!Utils::checkIfFileToParseExists(fileToParseSetting)) Utils::initVector(false, true, Mod::get()->getResourcesDir() / fmt::format("{}.txt", fileToParseSetting));
+	else Utils::initVector(false, true);
 	listenForSettingChanges<std::string>("fileToParse", [](const std::string& fileToParse) {
-		const std::filesystem::path resourceFile = Mod::get()->getResourcesDir() / fmt::format("{}.txt", fileToParse);
-		if (!std::filesystem::exists(resourceFile)) return;
-		Utils::initVector(true, false, resourceFile);
+		if (!Utils::checkIfFileToParseExists(fileToParse)) Utils::initVector(true, false);
+		else Utils::initVector(true, false, Mod::get()->getResourcesDir() / fmt::format("{}.txt", fileToParse));
 	});
 }
 
