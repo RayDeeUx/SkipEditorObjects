@@ -6,7 +6,7 @@
 #include "Utils.hpp"
 
 #define IF_VECTOR_EMPTY_RETURN if (manager->isEmpty) return
-#define VECTOR_DOES_CONTAIN_ID std::ranges::find(manager->theIDs.begin(), manager->theIDs.end(), id) != manager->theIDs.end()
+#define VECTOR_DOES_CONTAIN_ID manager->theIDs.contains(id)
 #define LOADER_LOADED Loader::get()->isModLoaded
 #define MOD_IS_ENABLED Mod::get()->getSettingValue<bool>("enabled")
 #define GET_MANAGER Manager* manager = Manager::getSharedInstance();

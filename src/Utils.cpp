@@ -1,9 +1,6 @@
 #include "Manager.hpp"
 #include "Utils.hpp"
 #include <random>
-#include <regex>
-
-static const std::regex numbersOnly(R"(^(\d+).*$)", std::regex::optimize | std::regex::icase);
 
 namespace Utils {
     void initVector(const bool showAlert, const bool fromOnModLoaded) {
@@ -12,10 +9,10 @@ namespace Utils {
         auto pathCustom = (geode::Mod::get()->getConfigDir() / "custom.txt").string();
         std::ifstream file(pathCustom);
         std::string objID;
-        std::smatch match;
         while (std::getline(file, objID)) {
-            if (!std::regex_match(objID, match, numbersOnly)) continue;
-            if (const int element = geode::utils::numFromString<int>(static_cast<std::string>(match[0])).unwrapOr(-1); element != -1) manager->theIDs.push_back(element);
+            objID = geode::utils::string::replace(geode::utils::string::replace(geode::utils::string::replace(objID, "\n", ""), " ", ""), "\r", "");
+            if (!std::ranges::all_of(objID, [](auto c) { return std::isdigit(c); })) continue;
+            if (const int element = geode::utils::numFromString<int>(objID).unwrapOr(-1); element != -1) manager->theIDs.insert(element);
         }
         if (showAlert || fromOnModLoaded) manager->isEmpty = manager->theIDs.empty();
         if (showAlert) FLAlertLayer::create("Success!", fmt::format("Your object IDs have been loaded.\n\nDebug info:\n<cg>fromOnModLoaded</c>: {}\n<cg>manager->isEmpty</c>: {}", fromOnModLoaded, manager->isEmpty), "Close")->show();

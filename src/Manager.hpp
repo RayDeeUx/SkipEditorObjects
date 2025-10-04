@@ -4,7 +4,7 @@ class Manager {
 protected:
     static Manager* instance;
 public:
-    std::vector<int> theIDs;
+    std::unordered_set<int> theIDs;
     bool isEmpty = false;
     static Manager* getSharedInstance() {
         if (!instance) instance = new Manager();
