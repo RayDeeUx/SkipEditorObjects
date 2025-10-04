@@ -19,7 +19,7 @@ $on_mod(Loaded) {
 	ADD_SETTINGS_BUTTON("resourcedir", &MyButtonSettingV3::parse);
 	ADD_SETTINGS_BUTTON("refresh", &MyButtonSettingV3::parse);
 	// code adapted with permission from dialouge handler original author thesillydoggo: https://discord.com/channels/911701438269386882/911702535373475870/1212633554345918514
-	const auto path = (Mod::get()->getConfigDir() / "custom.txt").string();
+	const auto path = geode::utils::string::pathToString(Mod::get()->getConfigDir() / "custom.txt");
 	if (!std::filesystem::exists(path)) {
 	std::string content = R"(hello there
 this is the text file where you add object IDs
@@ -37,6 +37,11 @@ have fun!
 		(void) utils::file::writeString(path, content);
 	}
 	Utils::initVector(false, true);
+	listenForSettingChanges<std::string>("fileToParse", [](const std::string& fileToParse) {
+		const std::filesystem::path resourceFile = Mod::get()->getResourcesDir() / fmt::format("{}.txt", fileToParse);
+		if (!std::filesystem::exists(resourceFile)) return;
+		Utils::initVector(true, false, resourceFile);
+	});
 }
 
 class $modify(MyEditButtonBar, EditButtonBar) {
