@@ -1,7 +1,10 @@
 # SkipEditorObjects Changelog
+## v1.2.1
+- Fix a typo in the changelog.
+- Refactor a small thing.
 ## v1.2.0
 - Experimental iOS JIT-less support.
-- Added `Verison Presets` per popular demand.
+- Added `Version Presets` per popular demand.
 - Significant changes in line parsing approach.
 ## v1.1.8
 - Experimental iOS support.

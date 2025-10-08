@@ -67,8 +67,10 @@ class $modify(MyEditButtonBar, EditButtonBar) {
 				newArray->addObject(object);
 				continue;
 			}
+			
 			const auto buttonSprite = typeinfo_cast<ButtonSprite*>(theObject->getChildren()->objectAtIndex(0));
 			if (!buttonSprite) continue;
+			
 			bool customObjectFound = true;
 			for (int j = 0; j < buttonSprite->getChildrenCount(); j++) {
 				const auto gameObject = typeinfo_cast<GameObject*>(buttonSprite->getChildren()->objectAtIndex(j));
